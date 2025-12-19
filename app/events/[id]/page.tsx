@@ -1,6 +1,7 @@
 "use client"
 
 import { api } from "@/convex/_generated/api"
+import { Id } from "@/convex/_generated/dataModel"
 import { useQuery } from "convex/react"
 import { notFound, useParams } from "next/navigation"
 import { Calendar, MapPin, Ticket } from "lucide-react"
@@ -12,7 +13,7 @@ export default function EventDetailsPage() {
   if (!id || Array.isArray(id)) notFound()
 
   const event = useQuery(api.events.getEventById, {
-    id,
+    id: id as Id<"events">,
   })
 
   if (!event) return null
@@ -20,7 +21,7 @@ export default function EventDetailsPage() {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10 space-y-8">
-      
+
       {/* Cover */}
       {event.coverImage && (
         <div className="rounded-3xl overflow-hidden">
